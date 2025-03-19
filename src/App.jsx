@@ -1,10 +1,18 @@
+import { useState } from "react";
+import Container from "./components/Container";
+import Modal from "./components/Modal";
+
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <main>
-      <h1 className="mt-0 bg-[var(--color-moderate-blue)] pt-1.5 text-2xl text-[var(--color-white)]">
-        Interactive comments section
-      </h1>
-    </main>
+    <>
+      <main className="px-4 py-8 sm:px-8 sm:py-16">
+        <Container setIsModalOpen={setIsModalOpen} />
+      </main>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 }
 
