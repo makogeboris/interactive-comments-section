@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-function Modal({ isOpen, onClose }) {
+function Modal({ isOpen, onClose, onDelete, onDeleteReply }) {
   if (!isOpen) return null;
 
   return (
@@ -25,7 +25,13 @@ function Modal({ isOpen, onClose }) {
           <Button type="cancel" onClick={onClose}>
             No, Cancel
           </Button>
-          <Button type="delete" onClick={onClose}>
+          <Button
+            type="delete"
+            onClick={() => {
+              onDelete();
+              onDeleteReply();
+            }}
+          >
             Yes, Delete
           </Button>
         </div>

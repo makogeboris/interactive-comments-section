@@ -1,15 +1,15 @@
+import { useState } from "react";
 import Textarea from "./Textarea";
 import Button from "./Button";
-import { useState } from "react";
 
-function AddComment({ onAddComment }) {
+function ReplyForm({ onAddReply, parentId, replyingTo, onCancel }) {
   const [text, setText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim() === "") return;
 
-    onAddComment(text);
+    onAddReply(text, parentId);
     setText("");
   };
 
@@ -21,25 +21,29 @@ function AddComment({ onAddComment }) {
       <img
         className="hidden size-8 sm:block sm:size-10"
         src="/avatars/image-juliusomo.png"
-        alt="User Avatar"
+        alt=""
       />
 
-      <Textarea value={text} onChange={(e) => setText(e.target.value)} />
+      <Textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder={`Replying to @${replyingTo}`}
+      />
 
       <div className="flex flex-wrap items-center justify-between sm:hidden">
         <img
           className="size-8 sm:size-10"
           src="/avatars/image-juliusomo.png"
-          alt="User Avatar"
+          alt=""
         />
-        <Button type="default">Send</Button>
+        <Button type="default">Reply</Button>
       </div>
 
-      <div className="hidden sm:block">
-        <Button type="default">Send</Button>
+      <div className="hidden gap-2 sm:flex">
+        <Button type="default">Reply</Button>
       </div>
     </form>
   );
 }
 
-export default AddComment;
+export default ReplyForm;

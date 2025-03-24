@@ -3,48 +3,49 @@ import Button from "./Button";
 import VoteButton from "./VoteButton";
 import ActionButton from "./ActionButton";
 
-function Reply({ onDelete, onSave, content }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedText, setEditedText] = useState(content);
-
-  function handleSave() {
-    onSave(editedText);
-    setIsEditing(false);
-  }
+function NewComment({
+  avatar,
+  timestamp,
+  content,
+  isEditing,
+  onDelete,
+  onEdit,
+  onSave,
+}) {
+  const [editedContent, setEditedContent] = useState(content);
 
   return (
     <div className="flex w-full flex-col gap-4 rounded-lg bg-white p-4 sm:p-6 md:flex-row md:gap-6">
       <div className="hidden md:block">
-        <VoteButton votes="2" />
+        <VoteButton votes="0" />
       </div>
 
       <div className="flex w-full flex-col gap-4 md:gap-0">
         <div className="flex items-center justify-between md:mb-4">
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center">
-              <img
-                className="size-8"
-                src="/avatars/image-juliusomo.png"
-                alt=""
-              />
-              <a
-                href="#"
-                className="ml-4 font-bold text-[var(--color-dark-blue)]"
-              >
+              <img className="size-8" src={avatar} alt="" />
+              <p className="ml-4 text-base font-bold text-[var(--color-dark-blue)]">
                 juliusomo
-              </a>
+              </p>
               <div className="ml-2 rounded-xs bg-[var(--color-moderate-blue)] px-1.5 pt-0 pb-0.5">
                 <p className="text-xs font-normal text-white">you</p>
               </div>
             </div>
-            <p className="text-base text-[var(--color-grayish-blue)]">
-              2 days ago
+            <p className="text-base font-normal text-[var(--color-grayish-blue)]">
+              {timestamp}
             </p>
           </div>
 
           <div className="hidden items-center gap-6 md:flex">
             <ActionButton type="delete" onClick={onDelete}>
-              <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
+              <svg
+                width="12"
+                height="14"
+                viewBox="0 0 12 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -54,12 +55,14 @@ function Reply({ onDelete, onSave, content }) {
               </svg>
               Delete
             </ActionButton>
-
-            <ActionButton
-              type="default"
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <ActionButton type="default" onClick={onEdit}>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -73,35 +76,26 @@ function Reply({ onDelete, onSave, content }) {
         </div>
 
         {isEditing ? (
-          <textarea
-            className="w-full resize-none rounded-lg border border-[var(--color-light-gray)] bg-white p-3 px-6 text-base font-normal text-[var(--color-grayish-blue)] focus-visible:outline-2 focus-visible:outline-[var(--color-moderate-blue)]"
-            rows={4}
-            value={editedText}
-            onChange={(e) => setEditedText(e.target.value)}
-          />
+          <div className="flex flex-col items-end gap-4">
+            <textarea
+              className="w-full resize-none rounded-lg border border-[var(--color-light-gray)] bg-white p-3 px-6 text-base font-normal text-[var(--color-grayish-blue)] focus-visible:outline-2 focus-visible:outline-[var(--color-moderate-blue)]"
+              rows={3}
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+            />
+            <Button type="default" onClick={() => onSave(editedContent)}>
+              Update
+            </Button>
+          </div>
         ) : (
-          <p className="text-base text-[var(--color-grayish-blue)]">
-            <a
-              href="#"
-              className="rounded-sm font-bold text-[var(--color-moderate-blue)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-moderate-blue)]"
-            >
-              @ramsesmiron
-            </a>{" "}
+          <p className="text-base font-normal text-[var(--color-grayish-blue)]">
             {content}
           </p>
         )}
 
-        <div className="flex gap-4 self-end md:mt-4">
-          {isEditing && (
-            <Button type="default" onClick={handleSave}>
-              Update
-            </Button>
-          )}
-        </div>
-
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="md:hidden">
-            <VoteButton votes="2" />
+            <VoteButton votes="0" />
           </div>
 
           <div className="flex items-center gap-4 md:hidden">
@@ -123,10 +117,7 @@ function Reply({ onDelete, onSave, content }) {
               Delete
             </ActionButton>
 
-            <ActionButton
-              type="default"
-              onClick={() => setIsEditing(!isEditing)}
-            >
+            <ActionButton type="default" onClick={onEdit}>
               <svg
                 width="14"
                 height="14"
@@ -150,4 +141,4 @@ function Reply({ onDelete, onSave, content }) {
   );
 }
 
-export default Reply;
+export default NewComment;

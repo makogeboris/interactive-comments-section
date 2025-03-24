@@ -3,7 +3,7 @@ const Button = ({ type = "default", children, onClick }) => {
     "py-3 font-semibold uppercase text-base text-white rounded-lg transition-opacity duration-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 hover:opacity-60";
   const typeStyles = {
     default:
-      "bg-[var(--color-moderate-blue)] px-7 focus-visible:outline-[var(--color-moderate-blue)]",
+      "bg-[var(--color-moderate-blue)] min-w-[104px] px-5 focus-visible:outline-[var(--color-moderate-blue)]",
     cancel:
       "bg-[var(--color-grayish-blue)] w-full px-3 focus-visible:outline-[var(--color-grayish-blue)]",
     delete:

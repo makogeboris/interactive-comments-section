@@ -1,7 +1,30 @@
-function VoteButton() {
+import { useState } from "react";
+
+function VoteButton({ votes }) {
+  const [voteCount, setVoteCount] = useState(Number(votes));
+  const [userVote, setUserVote] = useState(null);
+
+  const handleUpvote = () => {
+    if (userVote === "up") return;
+
+    setVoteCount((prev) => prev + (userVote === "down" ? 2 : 1));
+    setUserVote("up");
+  };
+
+  const handleDownvote = () => {
+    if (userVote === "down") return;
+
+    setVoteCount((prev) => prev - (userVote === "up" ? 2 : 1));
+    setUserVote("down");
+  };
+
   return (
     <div className="flex h-10 w-full max-w-[6.25rem] min-w-[6.25rem] items-center justify-between rounded-[10px] bg-[var(--color-very-light-gray)] px-4 py-2.5 md:min-h-[6.25rem] md:max-w-10 md:min-w-auto md:flex-col">
-      <button className="group cursor-pointer rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-moderate-blue)]">
+      <button
+        onClick={handleUpvote}
+        disabled={userVote === "up"}
+        className="group cursor-pointer rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-moderate-blue)]"
+      >
         <svg
           width="11"
           height="11"
@@ -17,10 +40,14 @@ function VoteButton() {
       </button>
 
       <p className="text-base font-semibold text-[var(--color-moderate-blue)]">
-        12
+        {voteCount}
       </p>
 
-      <button className="group cursor-pointer rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-moderate-blue)]">
+      <button
+        onClick={handleDownvote}
+        disabled={userVote === "down"}
+        className="group cursor-pointer rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-moderate-blue)]"
+      >
         <svg
           width="10"
           height="3"

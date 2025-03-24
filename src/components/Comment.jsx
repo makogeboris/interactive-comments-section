@@ -1,26 +1,33 @@
 import VoteButton from "./VoteButton";
 import ActionButton from "./ActionButton";
-import avatar from "../assets/avatars/image-amyrobson.png";
 
-function Comment() {
+function Comment({
+  user,
+  avatar,
+  timestamp,
+  content,
+
+  votes,
+  children,
+}) {
   return (
     <div className="flex w-full flex-col gap-4 rounded-lg bg-white p-4 sm:p-6 md:flex-row md:gap-6">
       <div className="hidden md:block">
-        <VoteButton />
+        <VoteButton votes={votes} />
       </div>
 
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
+      <div className="flex w-full flex-col gap-4 md:gap-0">
+        <div className="flex items-center justify-between md:mb-4">
           <div className="flex flex-wrap items-center gap-4">
-            <img className="size-8" src={avatar} alt="" />
+            <img className="size-8" src={avatar} alt={`${user}'s avatar`} />
             <a
               href="#"
               className="rounded-sm text-base font-bold text-[var(--color-dark-blue)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-moderate-blue)]"
             >
-              amyrobson
+              {user}
             </a>
             <p className="text-base font-normal text-[var(--color-grayish-blue)]">
-              1 month ago
+              {timestamp}
             </p>
           </div>
 
@@ -44,14 +51,20 @@ function Comment() {
         </div>
 
         <p className="text-base font-normal text-[var(--color-grayish-blue)]">
-          Impressive! Though it seems the drag feature could be improved. But
-          overall it looks incredible. You’ve nailed the design and the
-          responsiveness at various breakpoints works really well.
+          {children && (
+            <a
+              href="#"
+              className="rounded-sm font-bold text-[var(--color-moderate-blue)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-moderate-blue)]"
+            >
+              {children}{" "}
+            </a>
+          )}
+          {content}
         </p>
 
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="md:hidden">
-            <VoteButton />
+            <VoteButton votes={votes} />
           </div>
 
           <div className="md:hidden">
