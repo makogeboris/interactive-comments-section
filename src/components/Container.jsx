@@ -76,9 +76,10 @@ function Container() {
       id: Date.now(),
       avatar: "/avatars/image-juliusomo.png",
       timestamp: "Just now",
-      content: text,
+      content: `@${username} ${text}`,
       isEditing: false,
       user: "juliusomo",
+      replyingTo: username,
     };
 
     setCommentReplies((prev) => ({
