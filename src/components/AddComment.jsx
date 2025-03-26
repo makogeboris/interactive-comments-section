@@ -1,6 +1,6 @@
+import { useState } from "react";
 import Textarea from "./Textarea";
 import Button from "./Button";
-import { useState } from "react";
 
 function AddComment({ onAddComment }) {
   const [text, setText] = useState("");

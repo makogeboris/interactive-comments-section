@@ -7,12 +7,23 @@ function NewComment({
   avatar,
   timestamp,
   content,
-  isEditing,
+  isEditing = false,
   onDelete,
   onEdit,
   onSave,
 }) {
   const [editedContent, setEditedContent] = useState(content);
+  const [currentlyEditing, setCurrentlyEditing] = useState(isEditing);
+
+  const handleEdit = () => {
+    onEdit();
+    setCurrentlyEditing(true);
+  };
+
+  const handleSave = () => {
+    onSave(editedContent);
+    setCurrentlyEditing(false);
+  };
 
   return (
     <div className="flex w-full flex-col gap-4 rounded-lg bg-white p-4 sm:p-6 md:flex-row md:gap-6">
@@ -55,7 +66,7 @@ function NewComment({
               </svg>
               Delete
             </ActionButton>
-            <ActionButton type="default" onClick={onEdit}>
+            <ActionButton type="default" onClick={handleEdit}>
               <svg
                 width="14"
                 height="14"
@@ -75,7 +86,7 @@ function NewComment({
           </div>
         </div>
 
-        {isEditing ? (
+        {currentlyEditing ? (
           <div className="flex flex-col items-end gap-4">
             <textarea
               className="w-full resize-none rounded-lg border border-[var(--color-light-gray)] bg-white p-3 px-6 text-base font-normal text-[var(--color-grayish-blue)] focus-visible:outline-2 focus-visible:outline-[var(--color-moderate-blue)]"
@@ -83,7 +94,7 @@ function NewComment({
               value={editedContent}
               onChange={(e) => setEditedContent(e.target.value)}
             />
-            <Button type="default" onClick={() => onSave(editedContent)}>
+            <Button type="default" onClick={handleSave}>
               Update
             </Button>
           </div>
@@ -117,7 +128,7 @@ function NewComment({
               Delete
             </ActionButton>
 
-            <ActionButton type="default" onClick={onEdit}>
+            <ActionButton type="default" onClick={handleEdit}>
               <svg
                 width="14"
                 height="14"
