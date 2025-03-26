@@ -21,6 +21,7 @@ function VoteButton({ votes }) {
   return (
     <div className="flex h-10 w-full max-w-[6.25rem] min-w-[6.25rem] items-center justify-between rounded-[10px] bg-[var(--color-very-light-gray)] px-4 py-2.5 md:min-h-[6.25rem] md:max-w-10 md:min-w-auto md:flex-col">
       <button
+        aria-label="Upvote"
         onClick={handleUpvote}
         disabled={userVote === "up"}
         className="group cursor-pointer rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-moderate-blue)]"
@@ -44,6 +45,7 @@ function VoteButton({ votes }) {
       </p>
 
       <button
+        aria-label="Downvote"
         onClick={handleDownvote}
         disabled={userVote === "down"}
         className="group cursor-pointer rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-moderate-blue)]"
